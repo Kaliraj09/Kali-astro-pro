@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kali Astro Pro | கலி அஸ்ட்ரோ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="night-sky"></div>
+    <div class="container">
+        <header class="app-header">
+            <h1 class="main-heading">KALI ASTRO PRO</h1>
+            <p class="tagline">Forensic Vedic Analysis | Personalized Forecast</p>
+        </header>
+
+        <div class="mode-grid">
+            <button id="m1" class="m-btn active" onclick="switchMode('daily')">தினசரி</button>
+            <button id="m2" class="m-btn" onclick="switchMode('match')">பொருத்தம்</button>
+            <button id="m3" class="m-btn" onclick="switchMode('num')">எண் கணிதம்</button>
+            <button id="m4" class="m-btn" onclick="switchMode('tarot')">டாரோட்</button>
+            <button id="m5" class="m-btn" onclick="switchMode('pancha')">பஞ்சாங்கம்</button>
+            <button id="m6" class="m-btn" onclick="switchMode('yearly')">வருடாந்திரம்</button>
+            <button id="m7" class="m-btn" onclick="switchMode('prasannam')">பிரசன்னம்</button>
+            <button id="m9" class="m-btn" onclick="switchMode('hora')">சுப நேரம்</button>
+        </div>
+
+        <section id="dailySection" class="mode-section">
+            <div class="input-card">
+                <h3>தினசரி ஜாதகம்</h3>
+                <input type="text" id="fullName" placeholder="பெயர்">
+                <select id="rasi" class="rasi-list"></select>
+                <button class="calc-btn" onclick="analyzeAstro()">பலன் காண்க</button>
+            </div>
+        </section>
+
+        <section id="matchSection" class="mode-section hidden">
+            <div class="input-card">
+                <h3>திருமண பொருத்தம் (Forensic)</h3>
+                <div class="match-grid">
+                    <div class="partner-form">
+                        <label>ஆண் பெயர்</label><input type="text" id="boyName">
+                        <label>பிறந்த தேதி</label><input type="date" id="boyDob">
+                        <select id="boyRasi" class="rasi-list"></select>
+                    </div>
+                    <div class="partner-form">
+                        <label>பெண் பெயர்</label><input type="text" id="girlName">
+                        <label>பிறந்த தேதி</label><input type="date" id="girlDob">
+                        <select id="girlRasi" class="rasi-list"></select>
+                    </div>
+                </div>
+                <button class="calc-btn" onclick="checkCompatibility()">கணக்கிடு</button>
+            </div>
+        </section>
+
+        <section id="numSection" class="mode-section hidden">
+            <div class="input-card">
+                <h3>எண் கணிதம்</h3>
+                <label>பிறந்த தேதி</label>
+                <input type="date" id="numDob">
+                <button class="calc-btn" onclick="calculateNumerology()">கணக்கிடு</button>
+            </div>
+        </section>
+
+        <section id="tarotSection" class="mode-section hidden">
+            <div class="tarot-table">
+                <div id="tarotCard" class="card-back" onclick="pullTarot()">🎴</div>
+                <p id="tarotInstruction">கார்டைத் தொடவும்</p>
+                <div id="tarotResult" class="hidden">
+                    <div class="img-wrapper">
+                        <img id="tarotImg" src="" alt="Tarot Card" class="tarot-thumb">
+                    </div>
+                    <h4 id="tarotName"></h4>
+                    <p id="tarotDesc"></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="panchaSection" class="mode-section hidden">
+            <div class="report-card">
+                <h3 style="color:#0a192f">விரிவான பஞ்சாங்கம்</h3>
+                <div id="panData"></div>
+            </div>
+        </section>
+
+        <section id="yearlySection" class="mode-section hidden">
+            <div class="input-card">
+                <h3>வருடாந்திர பலன் (2026-27)</h3>
+                <div class="form-grid">
+                    <label class="form-label">பெயர்</label>
+                    <input type="text" id="yName" placeholder="பெயர்">
+                    <label class="form-label">பிறந்த தேதி</label>
+                    <input type="date" id="yDob">
+                    <label class="form-label">ராசி</label>
+                    <select id="yRasi" class="rasi-list"></select>
+                    <label class="form-label">நட்சத்திரம்</label>
+                    <select id="yStar" class="star-list"></select>
+                </div>
+                <button class="calc-btn" onclick="calculateYearly()">கணிப்பு காண்க</button>
+            </div>
+        </section>
+
+        <section id="prasannamSection" class="mode-section hidden">
+            <div class="input-card">
+                <h3>ஆருட பிரசன்னம்</h3>
+                <input type="text" id="prasannamQ" placeholder="உங்கள் கேள்வி?">
+                <button class="calc-btn" onclick="getPrasannamAnswer()">பதில் காண்க</button>
+            </div>
+        </section>
+
+        <section id="horaSection" class="mode-section hidden">
+            <div class="input-card">
+                <h3>இன்றைய சுப & அசுப நேரங்கள்</h3>
+                <div id="horaDisplay"></div>
+            </div>
+        </section>
+
+        <section id="resultArea" class="hidden">
+            <div class="report-card">
+                <h2 id="resTitle" style="color:#0a192f">முடிவு</h2>
+                <div id="resStats" class="stats-grid"></div>
+                <div id="yearlyContent" class="hidden"><div id="monthlyBreakdown"></div></div>
+                <p id="resPara" style="color:#1e293b; line-height:1.6;"></p>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
