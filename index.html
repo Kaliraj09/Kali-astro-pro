@@ -35,24 +35,33 @@
             </div>
         </section>
 
-        <section id="matchSection" class="mode-section hidden">
-            <div class="input-card">
-                <h3>திருமண பொருத்தம் (Forensic)</h3>
-                <div class="match-grid">
-                    <div class="partner-form">
-                        <label>ஆண் பெயர்</label><input type="text" id="boyName">
-                        <label>பிறந்த தேதி</label><input type="date" id="boyDob">
-                        <select id="boyRasi" class="rasi-list"></select>
-                    </div>
-                    <div class="partner-form">
-                        <label>பெண் பெயர்</label><input type="text" id="girlName">
-                        <label>பிறந்த தேதி</label><input type="date" id="girlDob">
-                        <select id="girlRasi" class="rasi-list"></select>
-                    </div>
-                </div>
-                <button class="calc-btn" onclick="checkCompatibility()">கணக்கிடு</button>
+       <section id="matchSection" class="mode-section hidden">
+    <div class="input-card">
+        <h3>திருமண பொருத்தம் (Dasa Porutham Analysis)</h3>
+        <div class="match-grid">
+            <div class="partner-form">
+                <h4 style="color:var(--gold)">ஆண் (Boy)</h4>
+                <label class="form-label">பெயர்</label><input type="text" id="boyName">
+                <label class="form-label">பிறந்த தேதி</label><input type="date" id="boyDob">
+                <label class="form-label">பிறந்த நேரம்</label><input type="time" id="boyTime">
+                <label class="form-label">பிறந்த ஊர்</label><input type="text" id="boyPlace">
+                <label class="form-label">ராசி</label><select id="boyRasi" class="rasi-list"></select>
+                <label class="form-label">நட்சத்திரம்</label><select id="boyStar" class="star-list"></select>
             </div>
-        </section>
+            <div class="partner-form">
+                <h4 style="color:var(--gold)">பெண் (Girl)</h4>
+                <label class="form-label">பெயர்</label><input type="text" id="girlName">
+                <label class="form-label">பிறந்த தேதி</label><input type="date" id="girlDob">
+                <label class="form-label">பிறந்த நேரம்</label><input type="time" id="girlTime">
+                <label class="form-label">பிறந்த ஊர்</label><input type="text" id="girlPlace">
+                <label class="form-label">ராசி</label><select id="girlRasi" class="rasi-list"></select>
+                <label class="form-label">நட்சத்திரம்</label><select id="girlStar" class="star-list"></select>
+            </div>
+        </div>
+        <button class="calc-btn" onclick="checkCompatibility()">விரிவான பொருத்தம் காண்க</button>
+    </div>
+</section>
+
 
         <section id="numSection" class="mode-section hidden">
             <div class="input-card">
