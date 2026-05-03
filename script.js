@@ -109,18 +109,54 @@ function analyzeAstro() {
 
 // 6. திருமண பொருத்தம் (Marriage Match)
 function checkCompatibility() {
-    const bd = document.getElementById('boyDob').value;
-    const gd = document.getElementById('girlDob').value;
-    const br = document.getElementById('boyRasi').value;
-    const gr = document.getElementById('girlRasi').value;
+    const bName = document.getElementById('boyName').value;
+    const gName = document.getElementById('girlName').value;
+    const bStar = document.getElementById('boyStar').value;
+    const gStar = document.getElementById('girlStar').value;
 
-    if(!bd || !gd || !br || !gr) return alert("அனைத்து விவரங்களையும் பூர்த்தி செய்யவும்");
+    if (!bName || !gName || !bStar || !gStar) {
+        alert("அனைத்து விவரங்களையும் பூர்த்தி செய்யவும்.");
+        return;
+    }
 
-    const seed = generateSeed(bd, gd, br, gr);
-    const score = (seed % 4) + 6; // 6 to 9 range score
+    const poruthams = ["தின", "கண", "மகேந்திர", "ஸ்த்ரீ தீர்க்க", "யோனி", "ராசி", "ராசியதிபதி", "வசிய", "ரஜ்ஜு", "வேதை"];
+    
+    let seed = 0;
+    const combo = bName + gName + bStar + gStar;
+    for (let i = 0; i < combo.length; i++) seed += combo.charCodeAt(i);
 
-    showOutput("திருமண பொருத்தம்", `மதிப்பெண்: ${score}/10`, "பிறந்த தேதி மற்றும் ராசி ரீதியாக இருவருக்கும் உத்தமமான பொருத்தம் காணப்படுகிறது. சுப காரியங்களை முன்னெடுக்கலாம்.");
+    let matchCount = 0;
+    let reportHtml = "<div style='text-align:left; margin-top:15px; border:1px solid #ddd; padding:10px; border-radius:10px; background:#fff;'>";
+    reportHtml += "<h4 style='text-align:center; color:#0a192f;'>10 பொருத்தங்கள் விவரம்</h4>";
+    
+    poruthams.forEach((p, i) => {
+        const isMatch = (seed + i) % 2 !== 0;
+        if (isMatch) matchCount++;
+        reportHtml += `<div style="display:flex; justify-content:space-between; border-bottom:1px solid #eee; padding:5px 0;">
+            <span>${i+1}. ${p} பொருத்தம்</span>
+            <span style="color:${isMatch ? 'green' : 'red'}; font-weight:bold;">${isMatch ? '✅ உண்டு' : '❌ இல்லை'}</span>
+        </div>`;
+    });
+    reportHtml += "</div>";
+
+    const bDosham = (seed % 7 === 0) ? "செவ்வாய் தோஷம்" : "தோஷம் இல்லை";
+    const gDosham = (seed % 5 === 0) ? "நாக தோஷம்" : "தோஷம் இல்லை";
+
+    document.getElementById('resTitle').innerText = "திருமண பொருத்தம் அறிக்கை";
+    document.getElementById('resStats').innerHTML = `
+        <div class="stat">பொருத்தம்: ${matchCount}/10</div>
+        <div class="stat">நிலை: ${matchCount >= 7 ? 'உத்தமம்' : 'மத்திமம்'}</div>
+        <div class="stat">ஆண் தோஷம்: ${bDosham}</div>
+        <div class="stat">பெண் தோஷம்: ${gDosham}</div>
+    `;
+
+    document.getElementById('resPara').innerHTML = reportHtml;
+    document.getElementById('resultArea').classList.remove('hidden');
+    document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth' });
 }
+
+
+
 
 // 7. வருடாந்திர பலன் (Yearly Palan) - Forensic Analysis
 function calculateYearly() {
